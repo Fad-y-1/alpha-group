@@ -4,1237 +4,928 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alfa Group</title>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/alfa group/WhatsApp Image 2026-06-09 at 3.57.58 AM.jpeg">
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  scroll-behavior:smooth;
-  font-family:Arial,sans-serif;
+:root {
+  --navy:    #03245c;
+  --blue:    #0057b8;
+  --sky:     #00a8e8;
+  --ice:     #e8f4fd;
+  --white:   #ffffff;
+  --gray:    #64748b;
+  --light:   #f0f6ff;
+  --border:  #dbeafe;
+  --dark:    #0a1628;
 }
 
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
 body{
-  background:#f7f9fc;
-  color:#222;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--white);
+  color:var(--dark);
   overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* ── NAVBAR ── */
 header{
-  position:fixed;
-  width:100%;
-  top:0;
-  left:0;
-  z-index:1000;
-  transition:0.4s;
+  position:fixed;top:0;left:0;right:0;
+  z-index:900;
+  padding:0 6%;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid transparent;
+  transition:all 0.4s ease;
 }
-
 header.scrolled{
-  background:white;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.navbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:18px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(255,255,255,0.9);
-  backdrop-filter:blur(10px);
-  z-index:1000;
-  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+  border-bottom-color:var(--border);
+  box-shadow:0 4px 24px rgba(0,87,184,0.08);
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
+  display:flex;align-items:center;gap:12px;
   text-decoration:none;
 }
-
-.logo-circle{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#00b4d8,#0077b6);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:white;
-  font-size:28px;
-  font-weight:bold;
-  transition:0.5s;
+.logo-img{
+  width:52px;height:52px;
+  object-fit:contain;
+  transition:transform 0.4s ease;
 }
-
-.logo:hover .logo-circle{
-  transform:rotate(360deg) scale(1.08);
+.logo:hover .logo-img{transform:scale(1.08);}
+.logo-name{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:800;
+  color:var(--navy);letter-spacing:-0.3px;
 }
+.logo-name span{color:var(--sky);}
 
-.logo span{
-  font-size:28px;
-  font-weight:bold;
-  color:#023e8a;
-}
-
-.nav-links{
-  display:flex;
-  list-style:none;
-  gap:35px;
-}
-
+.nav-links{display:flex;list-style:none;gap:8px;align-items:center;}
 .nav-links a{
-  text-decoration:none;
-  color:#333;
-  font-size:18px;
-  position:relative;
-  transition:0.3s;
+  padding:8px 16px;border-radius:8px;
+  font-size:14px;font-weight:600;
+  color:var(--gray);text-decoration:none;
+  transition:all 0.25s;
 }
-
-.nav-links a::after{
-  content:'';
-  position:absolute;
-  left:0;
-  bottom:-8px;
-  width:0;
-  height:2px;
-  background:#0077b6;
-  transition:0.4s;
+.nav-links a:hover,.nav-links a.active{
+  background:var(--ice);color:var(--blue);
 }
-
-.nav-links a:hover,
-.nav-links a.active{
-  color:#0077b6;
+.nav-cta{
+  background:var(--blue)!important;
+  color:#fff!important;
+  box-shadow:0 4px 14px rgba(0,87,184,0.3);
 }
+.nav-cta:hover{background:var(--navy)!important;transform:translateY(-1px);}
 
-.nav-links a:hover::after,
-.nav-links a.active::after{
-  width:100%;
-}
-
-/* PAGES */
-.page{
+/* ── PAGE SYSTEM ── */
+.page,.sub-page{
+  display:none;opacity:0;transform:translateY(16px);
+  transition:opacity 0.5s cubic-bezier(0.25,1,0.5,1),transform 0.5s cubic-bezier(0.25,1,0.5,1);
   min-height:100vh;
-  padding:130px 8% 80px;
-  display:none;
-  animation:fadePage 0.5s ease;
 }
-
-.page.active{
-  display:block;
+.page.active,.sub-page.active{
+  display:block;opacity:1;transform:none;
 }
+#products{padding-top:72px;}
+#products .sub-page{min-height:auto;padding:32px 6% 60px;}
 
-@keyframes fadePage{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* HOME */
+/* ── HERO ── */
+#home{padding-top:72px;}
 .hero{
-  display:flex;
-  justify-content:space-between;
+  min-height:calc(100vh - 72px);
+  display:grid;grid-template-columns:1fr 1fr;
   align-items:center;
-  gap:50px;
-  flex-wrap:wrap;
+  padding:80px 6%;
+  gap:60px;
+  position:relative;
+  overflow:hidden;
 }
 
-.hero-text{
-  flex:1;
-  min-width:300px;
+/* diagonal bg accent */
+.hero::before{
+  content:'';
+  position:absolute;top:0;right:0;
+  width:55%;height:100%;
+  background:linear-gradient(145deg,var(--ice) 0%,#d6eaff 100%);
+  clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%);
+  z-index:0;
 }
 
-.hero-text h1{
-  font-size:65px;
-  color:#023e8a;
-  margin-bottom:20px;
+/* subtle dot grid */
+.hero::after{
+  content:'';
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(0,87,184,0.07) 1px,transparent 1px);
+  background-size:32px 32px;
+  z-index:0;pointer-events:none;
 }
 
-.hero-text p{
-  font-size:20px;
-  line-height:1.8;
-  color:#555;
-  margin-bottom:30px;
+.hero-text{position:relative;z-index:1;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ice);
+  border:1px solid var(--border);
+  color:var(--blue);
+  font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 14px;border-radius:999px;
+  margin-bottom:24px;
+  animation:fadeUp 0.7s 0.1s both;
+}
+.hero-eyebrow i{font-size:10px;}
+
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(42px,5vw,68px);
+  font-weight:800;
+  line-height:1.05;
+  color:var(--navy);
+  margin-bottom:24px;
+  letter-spacing:-1px;
+  animation:fadeUp 0.7s 0.2s both;
+}
+.hero-title .accent{
+  background:linear-gradient(135deg,var(--blue),var(--sky));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-desc{
+  font-size:17px;line-height:1.8;
+  color:var(--gray);
+  max-width:480px;
+  margin-bottom:40px;
+  animation:fadeUp 0.7s 0.3s both;
 }
 
 .hero-btns{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
+  display:flex;gap:14px;flex-wrap:wrap;
+  animation:fadeUp 0.7s 0.4s both;
 }
 
-.btn{
-  padding:15px 30px;
-  border:none;
-  border-radius:50px;
-  cursor:pointer;
-  font-size:17px;
-  transition:0.4s;
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:10px;
+  background:var(--blue);color:#fff;
+  font-size:15px;font-weight:700;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 8px 24px rgba(0,87,184,0.3);
+}
+.btn-primary:hover{background:var(--navy);transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,87,184,0.4);}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:10px;
+  background:transparent;
+  color:var(--blue);
+  font-size:15px;font-weight:700;
+  border:2px solid var(--border);
+  cursor:pointer;text-decoration:none;
+  transition:all 0.3s;
+}
+.btn-secondary:hover{border-color:var(--blue);background:var(--ice);}
+
+/* trust badges */
+.trust-row{
+  display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;
+  animation:fadeUp 0.7s 0.5s both;
+}
+.trust-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:var(--gray);
+}
+.trust-item i{color:var(--sky);font-size:14px;}
+
+/* hero image side */
+.hero-visual{
+  position:relative;z-index:1;
+  display:flex;justify-content:center;
+}
+.hero-img-wrap{
+  position:relative;
+  width:100%;max-width:520px;
+}
+.hero-img-wrap img{
+  width:100%;border-radius:20px;
+  box-shadow:0 24px 60px rgba(0,30,80,0.18);
+  animation:fadeUp 0.8s 0.3s both;
 }
 
-.primary{
-  background:#0077b6;
-  color:white;
-}
-
-.primary:hover{
-  background:#023e8a;
-  transform:translateY(-4px);
-}
-
-.secondary{
-  background:white;
-  border:2px solid #0077b6;
-  color:#0077b6;
-}
-
-.secondary:hover{
-  background:#0077b6;
-  color:white;
-}
-
-.hero-image{
-  flex:1;
-  min-width:300px;
-}
-
-.hero-image img{
-  width:100%;
-  border-radius:30px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.15);
-}
-
-/* SECTION */
-.section-title{
-  font-size:48px;
-  color:#023e8a;
-  margin-bottom:20px;
-  text-align:center;
-}
-
-.section-subtitle{
-  text-align:center;
-  color:#666;
-  max-width:700px;
-  margin:auto auto 60px;
-  line-height:1.8;
-}
-
-/* PRODUCTS */
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-
-.card{
-  background:white;
-  border-radius:25px;
-  overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.12);
-}
-
-.card img{
-  width:100%;
-  height:250px;
-  object-fit:cover;
-  transition:0.5s;
-}
-
-.card:hover img{
-  transform:scale(1.05);
-}
-
-.card-content{
-  padding:25px;
-}
-
-.card-content h3{
-  font-size:28px;
-  color:#023e8a;
-  margin-bottom:10px;
-}
-
-.price{
-  color:#00b4d8;
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.card-content p{
-  color:#666;
-  line-height:1.7;
-  margin-bottom:20px;
-}
-/* 
-.card-content button{
-  width:100%;
-  padding:14px;
-  border:none;
+/* floating stat cards */
+.stat-card{
+  position:absolute;
+  background:#fff;
+  border:1px solid var(--border);
   border-radius:14px;
-  background:#0077b6;
-  color:white;
-  cursor:pointer;
-  transition:0.4s;
+  padding:14px 20px;
+  box-shadow:0 8px 28px rgba(0,30,80,0.12);
+  display:flex;align-items:center;gap:12px;
+}
+.stat-card-left{bottom:-20px;left:-24px;animation:fadeUp 0.8s 0.6s both;}
+.stat-card-right{top:-16px;right:-20px;animation:fadeUp 0.8s 0.7s both;}
+.stat-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--navy);}
+.stat-label{font-size:12px;color:var(--gray);font-weight:500;}
+.stat-icon{width:38px;height:38px;border-radius:10px;background:var(--ice);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:16px;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-.card-content button:hover{
-  background:#023e8a;
-} */
-
-.card-content button{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:16px;
-  background:linear-gradient(135deg,#00b4d8,#0077b6);
-  color:white;
-  cursor:pointer;
-  transition:0.4s;
-  font-size:16px;
-  font-weight:bold;
-  letter-spacing:0.5px;
-  box-shadow:0 10px 20px rgba(0,119,182,0.25);
+/* ── SECTION DEFAULTS ── */
+.section{padding:90px 6%;}
+.section-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sky);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow::before{content:'';display:block;width:24px;height:2px;background:var(--sky);border-radius:2px;}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(32px,4vw,48px);font-weight:800;
+  color:var(--navy);letter-spacing:-0.5px;
+  line-height:1.1;margin-bottom:16px;
+}
+.section-sub{
+  font-size:17px;line-height:1.8;
+  color:var(--gray);max-width:600px;
+  margin-bottom:56px;
 }
 
-.card-content button:hover{
-  transform:translateY(-4px) scale(1.02);
-  background:linear-gradient(135deg,#0096c7,#023e8a);
-  box-shadow:0 15px 30px rgba(2,62,138,0.35);
+/* ── JOURNEY TIMELINE ── */
+.timeline{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;
+  position:relative;
 }
-
-.card-content button:active{
-  transform:scale(0.98);
+.timeline::before{
+  content:'';
+  position:absolute;top:28px;left:0;right:0;
+  height:2px;background:var(--border);z-index:0;
 }
-
-/* PRODUCT DETAILS */
-.product-details{
-  display:flex;
-  align-items:center;
-  gap:60px;
-  flex-wrap:wrap;
+.timeline-item{
+  position:relative;z-index:1;
+  padding:0 24px 0 0;
 }
-
-.product-details img{
-  flex:1;
-  min-width:320px;
-  width:100%;
-  border-radius:25px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.1);
+.timeline-dot{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--sky));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;
+  margin-bottom:24px;
+  box-shadow:0 4px 16px rgba(0,87,184,0.3);
 }
+.timeline-item h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.timeline-item p{font-size:14px;line-height:1.7;color:var(--gray);}
 
-.details-text{
-  flex:1;
-  min-width:300px;
+/* ── FACILITIES ── */
+.facilities-bg{background:var(--light);}
+.facilities-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:24px;
 }
-
-.details-text h2{
-  font-size:55px;
-  color:#023e8a;
-  margin-bottom:20px;
+.fac-card{
+  background:#fff;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+  transition:all 0.35s cubic-bezier(0.25,1,0.5,1);
 }
-
-.details-text p{
-  line-height:1.9;
-  color:#555;
-  margin-bottom:25px;
-  font-size:18px;
+.fac-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,87,184,0.1);border-color:rgba(0,87,184,0.2);}
+.fac-card img{width:100%;height:200px;object-fit:cover;transition:transform 0.5s;}
+.fac-card:hover img{transform:scale(1.05);}
+.fac-card-body{padding:24px;}
+.fac-card-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--ice);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--blue);font-size:18px;
+  margin-bottom:14px;
 }
+.fac-card-body h3{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.fac-card-body p{font-size:14px;line-height:1.6;color:var(--gray);}
 
-/* ABOUT */
-.about-box{
-  background:white;
-  padding:50px;
-  border-radius:30px;
-  line-height:2;
-  color:#555;
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
-  font-size:19px;
+/* ── PRODUCTS ── */
+.prod-header{padding:56px 6% 32px;}
+.back-row{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 6%;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:72px;z-index:800;
+  margin-bottom:0;
 }
-
-
-/* CONTACT */
-.contact-box{
-  text-align:center;
-  background:white;
-  padding:60px;
-  border-radius:30px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+.btn-back{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:8px;
+  background:var(--light);color:var(--blue);
+  font-size:14px;font-weight:600;
+  border:1px solid var(--border);
+  cursor:pointer;transition:all 0.2s;
 }
+.btn-back:hover{background:var(--ice);border-color:var(--blue);}
 
-.contact-box h2{
-  font-size:45px;
-  color:#023e8a;
-  margin-bottom:20px;
+.prod-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:28px;padding:0 6%;
 }
-
-.contact-box p{
-  color:#666;
-  margin:15px 0;
-  font-size:18px;
+.prod-card{
+  background:#fff;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);
+  transition:all 0.35s cubic-bezier(0.25,1,0.5,1);
+  display:flex;flex-direction:column;
 }
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,87,184,0.1);border-color:rgba(0,87,184,0.25);}
+.prod-card img{width:100%;height:240px;object-fit:cover;transition:transform 0.5s;}
+.prod-card:hover img{transform:scale(1.04);}
+.prod-card-body{padding:28px;flex:1;display:flex;flex-direction:column;}
+.prod-cat-tag{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--blue);background:var(--ice);
+  padding:4px 12px;border-radius:999px;
+  margin-bottom:12px;
+}
+.prod-card-body h3{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.prod-card-body p{font-size:14px;line-height:1.7;color:var(--gray);flex:1;margin-bottom:20px;}
+.price-tag{
+  font-family:'Syne',sans-serif;
+  font-size:26px;font-weight:800;
+  color:var(--blue);margin-bottom:16px;
+}
+.btn-view{
+  width:100%;padding:13px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--sky));
+  color:#fff;font-size:14px;font-weight:700;
+  border:none;cursor:pointer;
+  transition:all 0.3s;
+  box-shadow:0 6px 18px rgba(0,87,184,0.25);
+}
+.btn-view:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,87,184,0.35);}
 
+/* product detail */
+.detail-wrap{
+  display:grid;grid-template-columns:1.2fr 1fr;
+  gap:64px;align-items:center;
+  padding:0 6%;
+}
+.detail-wrap img{
+  width:100%;border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,30,80,0.14);
+}
+.detail-text h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(32px,4vw,52px);font-weight:800;
+  color:var(--navy);margin-bottom:16px;letter-spacing:-0.5px;
+}
+.detail-text p{font-size:17px;line-height:1.9;color:var(--gray);margin-bottom:20px;}
+
+/* ── ABOUT ── */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:64px;align-items:center;
+}
+.about-img{border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,30,80,0.12);}
+.about-img img{width:100%;height:420px;object-fit:cover;}
+.about-content .section-title{text-align:left;}
+.about-content p{font-size:17px;line-height:1.9;color:var(--gray);margin-bottom:20px;}
+.about-highlights{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;}
+.highlight{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:600;color:var(--navy);
+}
+.highlight i{color:var(--sky);font-size:16px;}
+
+/* ── CONTACT ── */
+.contact-bg{background:var(--light);}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:48px;align-items:start;
+}
+.contact-card{
+  background:#fff;border-radius:20px;
+  border:1px solid var(--border);
+  padding:40px;
+}
+.contact-card h3{
+  font-family:'Syne',sans-serif;
+  font-size:26px;font-weight:800;
+  color:var(--navy);margin-bottom:0;
+}
+.contact-item{
+  display:flex;align-items:flex-start;gap:14px;
+  margin-bottom:22px;
+}
+.contact-item-icon{
+  width:42px;height:42px;min-width:42px;
+  border-radius:10px;background:var(--ice);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--blue);font-size:16px;
+}
+.contact-item-text{font-size:15px;color:var(--gray);line-height:1.5;}
+.contact-item-text strong{display:block;color:var(--navy);font-weight:700;margin-bottom:2px;}
+.contact-map{
+  border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);height:100%;min-height:320px;
+}
+.contact-map iframe{width:100%;height:100%;border:0;min-height:320px;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy);color:#fff;
+  padding:64px 6% 32px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;
+  gap:48px;margin-bottom:48px;
+}
+.footer-brand h2{
+  font-family:'Syne',sans-serif;
+  font-size:24px;font-weight:800;margin-bottom:14px;
+}
+.footer-brand h2 span{color:var(--sky);}
+.footer-brand p{font-size:14px;line-height:1.9;color:rgba(255,255,255,0.5);max-width:280px;}
+.footer-heading{
+  font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sky);margin-bottom:20px;
+}
+.footer-link{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:rgba(255,255,255,0.55);
+  text-decoration:none;margin-bottom:14px;
+  transition:color 0.2s;
+}
+.footer-brand img {
+  border-radius: 2px;
+  width: 70px;
+}
+.footer-link:hover{color:#fff;}
+.footer-link i{color:var(--sky);font-size:12px;min-width:14px;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{font-size:13px;color:rgba(255,255,255,0.3);}
+.footer-tagline{font-size:13px;color:rgba(0,168,232,0.4);font-style:italic;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.25,1,0.5,1),transform 0.7s cubic-bezier(0.25,1,0.5,1);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .timeline{grid-template-columns:repeat(2,1fr);gap:40px;}
+  .timeline::before{display:none;}
+  .facilities-grid{grid-template-columns:repeat(2,1fr);}
+  .prod-grid{grid-template-columns:repeat(2,1fr);}
+}
 @media(max-width:768px){
-  .navbar{
-    flex-direction:column;
-    gap:15px;
-  }
-
-  .nav-links{
-    gap:20px;
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-
-  .hero-text h1{
-    font-size:45px;
-  }
-
-  .details-text h2{
-    font-size:40px;
-  }
+  .hero{grid-template-columns:1fr;padding:60px 5%;gap:40px;text-align:center;}
+  .hero::before{display:none;}
+  .hero-desc{margin:0 auto 32px;}
+  .hero-btns{justify-content:center;}
+  .trust-row{justify-content:center;}
+  .stat-card-left,.stat-card-right{display:none;}
+  .about-grid,.contact-grid,.detail-wrap{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+  .timeline{grid-template-columns:1fr;}
+  .facilities-grid{grid-template-columns:1fr;}
+  .prod-grid{grid-template-columns:1fr;}
+  header{padding:0 5%;}
+  .nav-links{gap:4px;}
+  .nav-links a{padding:8px 10px;font-size:13px;}
 }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header id="header">
-<nav class="navbar">
-  <a href="#home" class="logo nav-item active-link">
-    <div class="logo-circle">A</div>
-    <span>Alfa Group</span>
+  <a href="#" class="logo" onclick="showPage('home');return false;">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIBO8GQAMBIgACEQEDEQH/xAAxAAEAAgMBAQAAAAAAAAAAAAAAAQYCAwUEBwEBAQEBAQAAAAAAAAAAAAAAAAECAwT/2gAMAwEAAhADEAAAArUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABjkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAACJAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeM9bjem56Dnk6Dx4r7nO3HseLaehhlLIlA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//EAAL/2gAMAwEAAgADAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/EAAL/2gAMAwEAAgADAAAAEPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPvvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPvOsvvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMm98+n8/vvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOMBWXxOTUdPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPq5qR3dOxC1PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPITkttG/I/P8A7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz4lmQppTswFrTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzesXnHPFsjbzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz6uqiNfxp/3tbzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzuzl3zyLr4z/wA888888888888888888888888888888888888888888888888888888888888888888888888888888888888888+7v1qe8N86b7+88888888888888888888888888888888888888888888888888888888888888888888888888888888888888886Fxic8p1Q8U88888888888888888888888888888888888888888888888888888888888888888888888888888888888842888prnVc89heBW88888888888888888888888888888888888888888888888888888888888888888888888888888888888D82888tCjk787bTwh8++888888888888888888888888888888888888888888888888888888888888888888888888888888+ljRW888sj0Lz86YDC4KsU60842+88888888888888888888888888888888888888888888888888888888888888888888888841x9+88+oTL0n+qnR/wCSARZIw79lPvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPL0ZHvPPPux+pnPr4vf2nxZ7i0zmgfvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPrtJuPPvPPLCLvdvqhaiZAAoaD3vHvUPvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPvOVwv/ADzzz7lMP5X7h2OOQUqWFb77sZhj7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz5BpuDb7zzz7ncLfL7nD6x3hFb/wA88r8JB888888888888888888888888888888888888888888888888888888888888888888816dz8c+888+vE6qy+IV+V/8APWhvvPLjx9N/PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPvvPdMxF4PvPPPrxi+b/kRMGmuAqOfvPOuKSBvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPvE9NCMeGPPvPPqzhqzJvsE8DxrEzPPPLgZkJ/vPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPo0xkI2AR/PvPPu9DijIeF+1pwh3ifPPLivho/vvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPgwP3Lo4JfPvPPqm0DgiYN8/K3Yut/PPPrrGEMPvvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPuMEo94az0LVvPPPK7EcCKbwPfK1XkKvPPPGrG4PmvvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPu+zSvBrxow1PPPPK0rXjz8RfPPWLaTvPPPQ9J0RYnvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPihO/VkJR2S3PvPPuCtciNvvPvuzTnqzPsqAUbjnn7fvvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPNY90hD1pBiVt/PPPKULlIvPPPvv+EO719/8A1mRiUTWD37zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz9Ts5R9fU95yBT7zz6nXTbrzzzz6i2Me48LIG6iJTHl+zj77zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz7zzzzzzzzzzzzzzzzzzzzz6WHZPMbHM/ADvzzzz7u6XFvzzzzyqs1noqUEpY3fEW9Db3777zzzzzzzzzzzzzzzzzzzzzzzzzzzzz7zzzzzzzzzzzzzzzzzzzzyar+GR35/p4DHv7zzzy/MMUfzzzzz5PhaG+7yzSfyjs2Ag/vzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz7zzzzzzzzzzzzzzzzzzzz5pIBMYzDSkicyD77zz6geMRz7zzzy1xRpf777uYob7logEnBr7zzzzzzzzzzzzzzzzzzzzzzzzzzzzz77zzzzzzzzzzzzzzzzzzqkgMgGRev/AJQlHi++8+xZhJvC8888+oHt258885Wt185GXKFv+U88888888888888888888888888888+888888888888888888+g5otP9yCr+9YlvH8888XXZTcf+888+8ggLJ+88+gj6CvmvZS34V88888888888888888888888888888+8888888888888888886TcKsAn54+8/MJRy8888MTJD9X8888+OrHUZ+88q+t2R8MQlk+iO0+888888888888888888888888888888888888888888888qoyzC+8Sz9W+/ej+s8+88v5fI3288888pLPkK+886L0Jq8qtnCcpBS0888888888888888888888888888888888888888888886O9Taq3ySwvW+/5KDA8+8tXhUYy1+88+8t4CuY+88qYdBI8wYReE9Vd888888888888888888888888888888888888888888888vUaHZYEs9xJ+++jzJm8++g3BISxW8+8++5R8QQ+88uulHy+Yzn4ZoTKX88888888888888888888888888888888888888888+8+fwHuc83CLhq28u2pgQ8+6Jo3X5Hs2888+8FTm/8AvPO4qCbvKjVS6C7GRGfvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOoERLtvqidPVxPvOMzvVPvcy56AxDzcPPPPLv0k1vPPPr8Wt/KFWPvLfD1gVPvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPuS3lvfL7J6JTkdvpE11gt9OaswMjpz6fvvv17+pVPPvOpC/RchkmXfvi/5LpvPvPPPPPPPPPPPPPPPPPPPPPPPLvPPPPPPPPPPPNDDnLlaJUMHkFHvIyCITtvwzpX9n0i+l/PrLPovz4QusDpUo99sQ2vPvvFvKEjXPvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPKlRuBfuhNHBFYIPHpdB+6SBe+mGoA/ZCPPPUVj2pZNL4feoYIO04E1m/Pd7iD6iPvPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPKBgLpP+MksowwHvnGIwsoVnbHsXZ+T4Q/POrhx4s3KbXsK/IqwpV88F/Ke/lCm+tvPPPPPPPPPPPPPPPPPPPPPPPNPPPPPPPPPPPPrH3vvvqzPPPPPPvvPPLv/AP8At8+++e88888+OLF+898c8OOO8sMc88++++sGM+8u+88888888888888888888888888888888888888+++88+++8+888+++++8888888888++88888++++++8++888+++++888888+8+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888+888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888/8QAOhEAAgIBAQQIAwcEAgIDAAAAAQIAAxEEBRIhMRATICIyQVFxI2ByFCQzNEJQYUNSYoFTgpGgFSUw/9oACAECAQE/AP8A3NczPzFwnCZEDTPy/ukxNM7jIEOjtE+yW/2z7NZ/bDpLgMlDCjDmPl0DJi1bq+8rVwOEeu0mCqwjnFot9TLEuAyGaUnfBD8feXUhSd3lBnPy0ZWcERXzKjwjvFcGKygQ3VZwZ1CYJTzjVtvGWLun5crlSr1Y9Y1eQTK1E12pNBCJ6cYb2f3mjvbiGMvAzkSxFsVscxCCPluvnNNbnuwDumKSHImvJe9ojbpEqfDAjzgUPXKQVvIaamvq7GEB+WqeLATSJhzmLugQgG0kTV/jv7zziMeE01u8uJeuGzNam9Wjj2MHy1TwcSs96fph8c1f47/VBEE0Yl/MR0D6R18xxhGD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" alt="Alfa Group Logo" class="logo-img">
+    <span class="logo-name">Alfa <span>Group</span></span>
   </a>
-
   <ul class="nav-links">
-    <li><a href="#home" class="nav-item active">Home</a></li>
-    <li><a href="#products" class="nav-item">Products</a></li>
-    <li><a href="#about" class="nav-item">About</a></li>
-    <li><a href="#contact" class="nav-item">Contact</a></li>
+    <li><a href="#" class="nav-item active" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" class="nav-item" onclick="showPage('products');return false;">Products</a></li>
+    <li><a href="#" class="nav-item" onclick="showPage('about');return false;">About</a></li>
+    <li><a href="#" class="nav-item nav-cta" onclick="showPage('contact');return false;">Contact Us</a></li>
   </ul>
-</nav>
 </header>
 
 <!-- HOME -->
 <section class="page active" id="home">
 
-  <section class="hero-section">
   <div class="hero">
     <div class="hero-text">
-      <h1>Alfa Group</h1>
-      <p>
-        Alfa Group is a leading industrial cleaning solutions company specialized in supplying premium cleaning products for hotels, hospitals, restaurants, resorts, and large commercial facilities.
-      </p>
-
-      <p>
-        Since 2008, Alfa Group has focused on combining powerful cleaning performance, modern technology, and elegant presentation to help large businesses maintain the highest standards of hygiene and comfort.
-      </p>
-
+      <div class="hero-eyebrow"><i class="fa-solid fa-certificate"></i> Trusted Since 2008 · Hurghada, Egypt</div>
+      <h1 class="hero-title">Industrial <span class="accent">Cleaning</span><br>Solutions</h1>
+      <p class="hero-desc">Premium cleaning products for hotels, hospitals, restaurants, and large commercial facilities across the Red Sea region.</p>
       <div class="hero-btns">
-        <button class="btn primary" onclick="showPage('products')">
-          Explore Products
-        </button>
-
-        <button class="btn secondary" onclick="showPage('about')">
-          Our Story
-        </button>
+        <button class="btn-primary" onclick="showPage('products')"><i class="fa-solid fa-box-open"></i> Explore Products</button>
+        <button class="btn-secondary" onclick="showPage('about')">Our Story <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><i class="fa-solid fa-check-circle"></i> Hotels & Resorts</div>
+        <div class="trust-item"><i class="fa-solid fa-check-circle"></i> Hospitals</div>
+        <div class="trust-item"><i class="fa-solid fa-check-circle"></i> Restaurants</div>
       </div>
     </div>
-
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1600&auto=format&fit=crop">
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1400&auto=format&fit=crop" alt="Alfa Group Cleaning Products">
+        <div class="stat-card stat-card-left">
+          <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+          <div><div class="stat-num">200+</div><div class="stat-label">Facilities Served</div></div>
+        </div>
+        <div class="stat-card stat-card-right">
+          <div class="stat-icon"><i class="fa-solid fa-calendar"></i></div>
+          <div><div class="stat-num">15+</div><div class="stat-label">Years Experience</div></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <br><br><br>
-
-  <!-- <h2 class="section-title">Who We Serve</h2>
-
-  <p class="section-subtitle">
-    Alfa Group provides industrial-grade cleaning solutions trusted by major facilities across Egypt and the Middle East.
-  </p>
-
-  <div class="features">
-    <div class="feature-box">
-      <h3>Hotels & Resorts</h3>
-      <p>
-        Premium products designed for luxury hospitality environments and guest satisfaction.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Hospitals</h3>
-      <p>
-        Professional disinfectants and sterilization products for healthcare environments.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Restaurants</h3>
-      <p>
-        Powerful kitchen degreasers and hygiene solutions for food service operations.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Tourist Villages</h3>
-      <p>
-        Large-scale cleaning systems tailored for tourist resorts and vacation facilities.
-      </p>
-    </div>
-  </div> -->
-
-  <br><br><br>
-
-  <h2 class="section-title">Why Businesses Trust Alfa Group</h2>
-
-  <div class="about-box">
-    Alfa Group was founded in Hurghada in 2008 as a small local supplier specialized in industrial cleaning solutions for hotels and tourist facilities across the Red Sea region.
-
-    <br><br>
-
-    The company started with a simple vision:
-    providing high-quality cleaning products capable of handling the demanding daily operations inside hotels, resorts, restaurants, and healthcare facilities.
-
-    <br><br>
-
-    During its early years, Alfa Group worked with several local restaurants and boutique hotels in Hurghada. Thanks to the quality of its products and reliable service, the company quickly gained the trust of larger hospitality brands and medical facilities.
-
-    <br><br>
-
-    By 2012, Alfa Group expanded its operations and began supplying industrial detergents, disinfectants, kitchen degreasers, and sanitation systems to major hotels, tourist villages, and hospitals across Hurghada and the Red Sea coast.
-
-    <br><br>
-
-    Over the years, the company became known for combining powerful performance with elegant presentation and long-lasting freshness, helping facilities maintain premium hygiene standards while improving the experience of guests and visitors.
-
-    <br><br>
-
-    Today, Alfa Group proudly serves a wide range of clients including:
-
-    <br><br>
-
-    • Luxury Hotels & Resorts
-    <br>
-    • Restaurants & Industrial Kitchens
-    <br>
-    • Hospitals & Healthcare Facilities
-    <br>
-    • Tourist Villages & Entertainment Facilities
-    <br>
-    • Commercial Buildings & Large Establishments
-
-    <br><br>
-
-    The company continues to grow by focusing on innovation, quality, customer trust, and delivering industrial cleaning solutions tailored for the hospitality and healthcare industries.
-  </div>
-
-  <br><br><br>
-
-  <h2 class="section-title">Our Journey</h2>
-
-  <div class="features">
-    <div class="feature-box">
-      <h3>2008</h3>
-      <p>
-        Alfa Group was established in Hurghada serving local hotels and restaurants.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>2012</h3>
-      <p>
-        Expanded operations across the Red Sea region and partnered with larger hospitality facilities.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>2017</h3>
-      <p>
-        Introduced advanced industrial disinfectants and sanitation systems for healthcare facilities.
-      </p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Today</h3>
-      <p>
-        Trusted by major hotels, hospitals, restaurants, and tourist villages in Hurghada.
-      </p>
+  <!-- Journey -->
+  <div class="section">
+    <p class="section-eyebrow reveal">Our History</p>
+    <h2 class="section-title reveal">Built Over 15 Years</h2>
+    <p class="section-sub reveal">From a local supplier to the Red Sea region's trusted industrial cleaning partner.</p>
+    <div class="timeline">
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-dot">2008</div>
+        <h3>Founded</h3>
+        <p>Alfa Group established in Hurghada, serving local hotels and restaurants.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-dot">2012</div>
+        <h3>Expansion</h3>
+        <p>Expanded across the Red Sea region, partnering with larger hospitality facilities.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-dot">2017</div>
+        <h3>Healthcare</h3>
+        <p>Introduced advanced disinfectants and sterilization systems for medical facilities.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-4">
+        <div class="timeline-dot" style="font-size:11px;">Today</div>
+        <h3>Market Leader</h3>
+        <p>Trusted by major hotels, hospitals, and tourist villages in Hurghada.</p>
+      </div>
     </div>
   </div>
 
-  <br><br><br>
-
-  <h2 class="section-title">Facilities We Worked With</h2>
-
-  <p class="section-subtitle">
-    Alfa Group has supplied industrial cleaning solutions to many hospitality and healthcare facilities across Hurghada and the Red Sea coast.
-  </p>
-
-  <div class="products-grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Luxury Hotels</h3>
-        <p>
-          Professional hygiene solutions for five-star hotels and hospitality environments.
-        </p>
+  <!-- Facilities -->
+  <div class="section facilities-bg">
+    <p class="section-eyebrow reveal">Who We Serve</p>
+    <h2 class="section-title reveal">Facilities We Work With</h2>
+    <p class="section-sub reveal">Alfa Group has supplied industrial cleaning solutions to hospitality and healthcare facilities across Hurghada and the Red Sea coast.</p>
+    <div class="facilities-grid">
+      <div class="fac-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop" alt="Luxury Hotels">
+        <div class="fac-card-body">
+          <div class="fac-card-icon"><i class="fa-solid fa-hotel"></i></div>
+          <h3>Luxury Hotels</h3>
+          <p>Professional hygiene solutions for five-star hotels and hospitality environments.</p>
+        </div>
+      </div>
+      <div class="fac-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=800&auto=format&fit=crop" alt="Tourist Resorts">
+        <div class="fac-card-body">
+          <div class="fac-card-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+          <h3>Tourist Resorts</h3>
+          <p>Large-scale sanitation and cleaning systems for resorts and tourist villages.</p>
+        </div>
+      </div>
+      <div class="fac-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" alt="Hospitals">
+        <div class="fac-card-body">
+          <div class="fac-card-icon"><i class="fa-solid fa-hospital"></i></div>
+          <h3>Hospitals</h3>
+          <p>Healthcare-grade disinfectants and sterilization products for medical facilities.</p>
+        </div>
+      </div>
+      <div class="fac-card reveal reveal-delay-4">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop" alt="Restaurants">
+        <div class="fac-card-body">
+          <div class="fac-card-icon"><i class="fa-solid fa-utensils"></i></div>
+          <h3>Restaurants</h3>
+          <p>Industrial cleaning and degreasing solutions for kitchens and restaurants.</p>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Tourist Resorts</h3>
-        <p>
-          Large-scale sanitation and cleaning systems for resorts and tourist villages.
-        </p>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Hospitals</h3>
-        <p>
-          Healthcare-grade disinfectants and sterilization products for medical facilities.
-        </p>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Restaurants</h3>
-        <p>
-          Industrial cleaning and degreasing solutions for kitchens and restaurants.
-        </p>
-      </div>
-    </div>
-
   </div>
+
 </section>
 
-  <footer style="margin-top:80px;background:#023e8a;color:white;padding:60px 8%;border-radius:30px;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;align-items:start;">
-
-      <div>
-        <h2 style="margin-bottom:20px;font-size:32px;">Alfa Group</h2>
-        <p style="line-height:1.9;color:#d9e6f2;">
-          Professional industrial cleaning solutions for hotels, hospitals,
-          restaurants, tourist villages, and large commercial facilities.
-        </p>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:20px;">Quick Contact</h3>
-        <p style="margin-bottom:15px;">
-          📧 <a href="mailto:fa7527870@gmail.com" style="color:white;text-decoration:none;">fa7527870@gmail.com</a>
-        </p>
-
-        <p style="margin-bottom:15px;">
-          📞 <a href="tel:01093627563" style="color:white;text-decoration:none;">01093627563</a>
-        </p>
-
-        <p>
-          📍 El Kawther, Hurghada, Red Sea, Egypt
-        </p>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:20px;">Company Location</h3>
-
-        <iframe
-          src="https://maps.google.com/maps?q=el%20kawther%20hurghada&t=&z=13&ie=UTF8&iwloc=&output=embed"
-          width="100%"
-          height="220"
-          style="border:0;border-radius:20px;"
-          allowfullscreen=""
-          loading="lazy">
-        </iframe>
-      </div>
-
-    </div>
-
-    <div style="margin-top:40px;text-align:center;color:#c7d8e6;">
-      © 2026 Alfa Group — All Rights Reserved
-    </div>
-  </footer>
-</section>
-
-<!-- PRODUCTS -->
 <!-- PRODUCTS -->
 <section class="page" id="products">
 
-  <h2 class="section-title">Product Categories</h2>
-
-  <p class="section-subtitle">
-    Choose a department to explore our professional cleaning solutions.
-  </p>
-
-  <div class="products-grid">
-
-    <!-- HOUSE KEEPING -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200&auto=format&fit=crop">
-
-      <div class="card-content">
-        <h3>House Keeping</h3>
-
-        <p>
-          Professional cleaning solutions for rooms, floors, glass, and hospitality environments.
-        </p>
-
-        <button onclick="showPage('housekeeping')">
-          View Products
-        </button>
+  <div id="products-main-view" class="sub-page active">
+    <div class="prod-header">
+      <div class="back-row">
+        <button class="btn-back" onclick="showPage('home')"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
       </div>
+      <p class="section-eyebrow">Our Range</p>
+      <h2 class="section-title">Product Categories</h2>
+      <p class="section-sub">Choose a department to explore our professional cleaning solutions.</p>
     </div>
-
-    <!-- LAUNDRY -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop">
-
-      <div class="card-content">
-        <h3>Laundry</h3>
-
-        <p>
-          Industrial laundry detergents and fabric care products for hotels and laundries.
-        </p>
-
-        <button onclick="showPage('laundry')">
-          View Products
-        </button>
+    <div class="prod-grid">
+      <div class="prod-card reveal">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=800&auto=format&fit=crop" alt="Housekeeping">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Department</span>
+          <h3>House Keeping</h3>
+          <p>Professional cleaning solutions for rooms, floors, glass, and hospitality environments.</p>
+          <button class="btn-view" onclick="showProductSubPage('housekeeping')">View Products <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
       </div>
-    </div>
-
-    <!-- KITCHEN -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1200&auto=format&fit=crop">
-
-      <div class="card-content">
-        <h3>Kitchen</h3>
-
-        <p>
-          Heavy-duty kitchen cleaners and degreasers for restaurants and industrial kitchens.
-        </p>
-
-        <button onclick="showPage('kitchen')">
-          View Products
-        </button>
+      <div class="prod-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=800&auto=format&fit=crop" alt="Laundry">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Department</span>
+          <h3>Laundry</h3>
+          <p>Industrial laundry detergents and fabric care products for hotels and commercial laundries.</p>
+          <button class="btn-view" onclick="showProductSubPage('laundry')">View Products <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- HOUSE KEEPING PAGE -->
-<section class="page" id="housekeeping">
-
-  <h2 class="section-title">House Keeping Products</h2>
-
-  <div class="products-grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Fresh Floor</h3>
-        <div class="price">$8</div>
-        <p>Luxury floor cleaner with long-lasting fragrance.</p>
+      <div class="prod-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop" alt="Kitchen">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Department</span>
+          <h3>Kitchen</h3>
+          <p>Heavy-duty kitchen cleaners and degreasers for restaurants and industrial kitchens.</p>
+          <button class="btn-view" onclick="showProductSubPage('kitchen')">View Products <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
       </div>
-      <button onclick="showPage('hk1')">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Glass Shine</h3>
-        <div class="price">$9</div>
-        <p>Professional glass cleaner for hotels and restaurants.</p>
-      </div>
-      <button onclick="showPage('hk2')">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Fresh Air</h3>
-        <div class="price">$7</div>
-        <p>Premium air freshener for hotels and resorts.</p>
-      </div>
-      <button onclick="showPage('hk3')">View Details</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- LAUNDRY PAGE -->
-<section class="page" id="laundry">
-
-  <h2 class="section-title">Laundry Products</h2>
-
-  <div class="products-grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Ultra Clean</h3>
-        <div class="price">$12</div>
-        <p>Industrial detergent for hotels and commercial laundries.</p>
-      </div>
-      <button onclick="showPage('ld1')" id="vvv">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Fabric Pro</h3>
-        <div class="price">$15</div>
-        <p>Commercial fabric softener for hotel laundries.</p>
-      </div>
-      <button onclick="showPage('ld2')" id="vvv">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Pure Disinfect</h3>
-        <div class="price">$16</div>
-        <p>Hospital-grade disinfectant with advanced protection.</p>
-      </div>
-      <button onclick="showPage('ld3')" id="vvv">View Details</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- KITCHEN PAGE -->
-<section class="page" id="kitchen">
-
-  <h2 class="section-title">Kitchen Products</h2>
-
-  <div class="products-grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Kitchen Power</h3>
-        <div class="price">$14</div>
-        <p>Heavy-duty degreaser for industrial kitchens.</p>
-      </div>
-      <button onclick="showPage('kt1')">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Steel Guard</h3>
-        <div class="price">$11</div>
-        <p>Metal and stainless steel cleaner for restaurants.</p>
-      </div>
-      <button onclick="showPage('kt2')">View Details</button>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1200&auto=format&fit=crop">
-      <div class="card-content">
-        <h3>Kitchen Fresh</h3>
-        <div class="price">$13</div>
-        <p>Advanced kitchen sanitizer for food preparation areas.</p>
-      </div>
-      <button onclick="showPage('kt3')">View Details</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- PRODUCT 1 -->
-<section class="page" id="product1">
-  <div class="product-details">
-    <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-      <h2>Ultra Clean</h2>
-      <div class="price">$12</div>
-
-      <p>
-        Ultra Clean is a premium detergent developed with advanced cleaning technology.
-        It removes difficult stains while protecting fabrics and leaving a fresh scent.
-        Perfect for daily washing and professional cleaning results.
-      </p>
-
-      <button class="btn primary" onclick="showPage('products')">
-        Back To Products
-      </button>
     </div>
   </div>
-</section>
 
-<!-- PRODUCT 2 -->
-<section class="page" id="product2">
-  <div class="product-details">
-    <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-      <h2>Fresh Floor</h2>
-      <div class="price">$8</div>
-
-      <p>
-        Fresh Floor delivers deep floor cleaning with an elegant fragrance that lasts for hours.
-        Suitable for marble, ceramic, wood, and all modern floor surfaces.
-      </p>
-
-      <button class="btn primary" onclick="showPage('products')">
-        Back To Products
-      </button>
+  <!-- Housekeeping -->
+  <div id="housekeeping" class="sub-page">
+    <div class="prod-header">
+      <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
+      <p class="section-eyebrow">House Keeping</p>
+      <h2 class="section-title">Housekeeping Products</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=800&auto=format&fit=crop" alt="Fresh Floor">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Housekeeping</span>
+          <h3>Fresh Floor</h3>
+          <div class="price-tag">$8</div>
+          <p>Luxury floor cleaner with long-lasting fragrance. Suitable for marble, ceramic, and wood surfaces.</p>
+          <button class="btn-view" onclick="showProductSubPage('hk1')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=800&auto=format&fit=crop" alt="Glass Shine">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Housekeeping</span>
+          <h3>Glass Shine</h3>
+          <div class="price-tag">$9</div>
+          <p>Professional glass cleaner for hotels and restaurants. Crystal-clear results every time.</p>
+          <button class="btn-view" onclick="showProductSubPage('hk2')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=800&auto=format&fit=crop" alt="Fresh Air">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Housekeeping</span>
+          <h3>Fresh Air</h3>
+          <div class="price-tag">$7</div>
+          <p>Premium air freshener designed for hotel rooms, reception areas, and luxury resorts.</p>
+          <button class="btn-view" onclick="showProductSubPage('hk3')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Laundry -->
+  <div id="laundry" class="sub-page">
+    <div class="prod-header">
+      <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
+      <p class="section-eyebrow">Laundry</p>
+      <h2 class="section-title">Laundry Products</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=800&auto=format&fit=crop" alt="Ultra Clean">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Laundry</span>
+          <h3>Ultra Clean</h3>
+          <div class="price-tag">$12</div>
+          <p>Industrial laundry detergent for hotels and commercial laundries. Removes difficult stains.</p>
+          <button class="btn-view" onclick="showProductSubPage('ld1')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=800&auto=format&fit=crop" alt="Fabric Pro">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Laundry</span>
+          <h3>Fabric Pro</h3>
+          <div class="price-tag">$15</div>
+          <p>Professional fabric softener with long-lasting freshness for hotel laundries.</p>
+          <button class="btn-view" onclick="showProductSubPage('ld2')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop" alt="Pure Disinfect">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Laundry</span>
+          <h3>Pure Disinfect</h3>
+          <div class="price-tag">$16</div>
+          <p>Hospital-grade disinfectant with advanced protection for healthcare facilities.</p>
+          <button class="btn-view" onclick="showProductSubPage('ld3')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kitchen -->
+  <div id="kitchen" class="sub-page">
+    <div class="prod-header">
+      <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
+      <p class="section-eyebrow">Kitchen</p>
+      <h2 class="section-title">Kitchen Products</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=800&auto=format&fit=crop" alt="Kitchen Power">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Kitchen</span>
+          <h3>Kitchen Power</h3>
+          <div class="price-tag">$14</div>
+          <p>Heavy-duty degreaser developed for industrial kitchens and restaurant operations.</p>
+          <button class="btn-view" onclick="showProductSubPage('kt1')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7728?q=80&w=800&auto=format&fit=crop" alt="Steel Guard">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Kitchen</span>
+          <h3>Steel Guard</h3>
+          <div class="price-tag">$11</div>
+          <p>Powerful cleaner for stainless steel surfaces and kitchen equipment.</p>
+          <button class="btn-view" onclick="showProductSubPage('kt2')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop" alt="Kitchen Fresh">
+        <div class="prod-card-body">
+          <span class="prod-cat-tag">Kitchen</span>
+          <h3>Kitchen Fresh</h3>
+          <div class="price-tag">$13</div>
+          <p>Advanced kitchen sanitizer for food preparation areas and commercial kitchens.</p>
+          <button class="btn-view" onclick="showProductSubPage('kt3')">View Details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Details -->
+  <div id="hk1" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop" alt="Fresh Floor"><div class="detail-text"><span class="prod-cat-tag">Housekeeping</span><h2>Fresh Floor</h2><div class="price-tag">$8</div><p>Fresh Floor delivers deep floor cleaning with an elegant fragrance that lasts for hours. Suitable for marble, ceramic, wood, and modern floor surfaces.</p><p>Designed for hotels, resorts, and luxury facilities.</p></div></div></div>
+  <div id="hk2" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop" alt="Glass Shine"><div class="detail-text"><span class="prod-cat-tag">Housekeeping</span><h2>Glass Shine</h2><div class="price-tag">$9</div><p>Professional glass cleaner that removes stains and fingerprints while leaving crystal-clear shine.</p></div></div></div>
+  <div id="hk3" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=1200&auto=format&fit=crop" alt="Fresh Air"><div class="detail-text"><span class="prod-cat-tag">Housekeeping</span><h2>Fresh Air</h2><div class="price-tag">$7</div><p>Premium air freshener designed for hotel rooms, reception areas, and luxury resorts.</p></div></div></div>
+  <div id="ld1" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop" alt="Ultra Clean"><div class="detail-text"><span class="prod-cat-tag">Laundry</span><h2>Ultra Clean</h2><div class="price-tag">$12</div><p>Industrial laundry detergent for hotels and commercial laundries. Removes difficult stains while protecting fabrics.</p></div></div></div>
+  <div id="ld2" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop" alt="Fabric Pro"><div class="detail-text"><span class="prod-cat-tag">Laundry</span><h2>Fabric Pro</h2><div class="price-tag">$15</div><p>Professional fabric softener with long-lasting freshness for hotel laundries and hospitality facilities.</p></div></div></div>
+  <div id="ld3" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop" alt="Pure Disinfect"><div class="detail-text"><span class="prod-cat-tag">Laundry</span><h2>Pure Disinfect</h2><div class="price-tag">$16</div><p>Hospital-grade disinfectant with advanced protection for healthcare and medical facilities.</p></div></div></div>
+  <div id="kt1" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1200&auto=format&fit=crop" alt="Kitchen Power"><div class="detail-text"><span class="prod-cat-tag">Kitchen</span><h2>Kitchen Power</h2><div class="price-tag">$14</div><p>Heavy-duty degreaser developed for industrial kitchens and restaurant operations.</p></div></div></div>
+  <div id="kt2" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1562259949-e8e7689d7728?q=80&w=1200&auto=format&fit=crop" alt="Steel Guard"><div class="detail-text"><span class="prod-cat-tag">Kitchen</span><h2>Steel Guard</h2><div class="price-tag">$11</div><p>Powerful cleaner for stainless steel surfaces, kitchen equipment, and restaurant environments.</p></div></div></div>
+  <div id="kt3" class="sub-page"><div class="prod-header"><div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div></div><div class="detail-wrap"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1200&auto=format&fit=crop" alt="Kitchen Fresh"><div class="detail-text"><span class="prod-cat-tag">Kitchen</span><h2>Kitchen Fresh</h2><div class="price-tag">$13</div><p>Advanced sanitizer for food preparation areas and commercial kitchens.</p></div></div></div>
+
 </section>
 
 <!-- ABOUT -->
 <section class="page" id="about">
-  <h2 class="section-title">About Alfa Group</h2>
-
-  <div class="about-box">
-    Alfa Group is a modern cleaning products company focused on quality,
-    elegance, and customer comfort. Our goal is to create products that make
-    cleaning easier, faster, and more enjoyable while maintaining premium
-    quality and affordable prices.
-
-    <br><br>
-
-    We believe that simplicity and performance are the key to a perfect user experience.
+  <div class="section">
+    <div class="about-grid">
+      <div class="about-img reveal">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1000&auto=format&fit=crop" alt="About Alfa Group">
+      </div>
+      <div class="about-content">
+        <p class="section-eyebrow reveal">Who We Are</p>
+        <h2 class="section-title reveal">About Alfa Group</h2>
+        <p class="reveal">Alfa Group is a modern industrial cleaning products company focused on quality, elegance, and customer comfort. Our goal is to create products that make cleaning easier, faster, and more effective.</p>
+        <p class="reveal">Since 2008, we have combined powerful cleaning performance with modern technology to help large businesses maintain the highest standards of hygiene across Hurghada and the Red Sea region.</p>
+        <div class="about-highlights reveal">
+          <div class="highlight"><i class="fa-solid fa-circle-check"></i> 15+ Years Experience</div>
+          <div class="highlight"><i class="fa-solid fa-circle-check"></i> 200+ Facilities</div>
+          <div class="highlight"><i class="fa-solid fa-circle-check"></i> 3 Product Lines</div>
+          <div class="highlight"><i class="fa-solid fa-circle-check"></i> Red Sea Region</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="page" id="contact">
-  <div class="contact-box">
-    <h2>Contact Us</h2>
-    <p>Email: info@alfagroup.com</p>
-    <p>Phone: +20 100 000 0000</p>
-    <p>Location: Egypt</p>
-  </div>
-</section>
-<!-- HOUSE KEEPING PRODUCT 1 -->
-<section class="page" id="hk1">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Fresh Floor</h2>
-
-      <div class="price">$8</div>
-
-      <p>
-        Fresh Floor delivers deep floor cleaning with an elegant fragrance
-        that lasts for hours. Suitable for marble, ceramic, wood,
-        and modern floor surfaces.
-      </p>
-
-      <p>
-        Designed for hotels, resorts, and luxury facilities.
-      </p>
-
-      <button class="btn primary" onclick="showPage('housekeeping')">
-        Back
-      </button>
-
+  <div class="section contact-bg">
+    <p class="section-eyebrow reveal">Get In Touch</p>
+    <h2 class="section-title reveal">Contact Us</h2>
+    <p class="section-sub reveal">We'd love to hear from you. Reach out for orders, inquiries, or partnerships.</p>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <h3>Contact Information</h3>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div class="contact-item-text"><strong>Email</strong><a href="mailto:fa7527870@gmail.com" style="color:var(--gray);text-decoration:none;">fa7527870@gmail.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="contact-item-text"><strong>Phone</strong><a href="tel:01093627563" style="color:var(--gray);text-decoration:none;">01093627563</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="contact-item-text"><strong>Location</strong>El Kawther, Hurghada, Red Sea, Egypt</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon"><i class="fa-regular fa-clock"></i></div>
+          <div class="contact-item-text"><strong>Working Hours</strong>Sun – Thu: 9:00 AM – 6:00 PM</div>
+        </div>
+      </div>
+      <div class="contact-map reveal reveal-delay-1">
+        <iframe src="https://maps.google.com/maps?q=el%20kawther%20hurghada&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+      </div>
     </div>
-
   </div>
-
 </section>
 
-<!-- HOUSE KEEPING PRODUCT 2 -->
-<section class="page" id="hk2">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Glass Shine</h2>
-
-      <div class="price">$9</div>
-
-      <p>
-        Professional glass cleaner that removes stains and fingerprints
-        while leaving crystal-clear shine.
-      </p>
-
-      <button class="btn primary" onclick="showPage('housekeeping')">
-        Back
-      </button>
-
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="WhatsApp Image 2026-06-09 at 3.57.58 AM.jpeg" alt="">
+      <p>Professional industrial cleaning solutions for hotels, hospitals, restaurants, tourist villages, and large commercial facilities across Egypt.</p>
     </div>
-
-  </div>
-
-</section>
-
-<!-- HOUSE KEEPING PRODUCT 3 -->
-<section class="page" id="hk3">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Fresh Air</h2>
-
-      <div class="price">$7</div>
-
-      <p>
-        Premium air freshener designed for hotel rooms,
-        reception areas, and luxury resorts.
-      </p>
-
-      <button class="btn primary" onclick="showPage('housekeeping')">
-        Back
-      </button>
-
+    <div>
+      <p class="footer-heading">Quick Links</p>
+      <a href="#" class="footer-link" onclick="showPage('home');return false;"><i class="fa-solid fa-chevron-right"></i> Home</a>
+      <a href="#" class="footer-link" onclick="showPage('products');return false;"><i class="fa-solid fa-chevron-right"></i> Products</a>
+      <a href="#" class="footer-link" onclick="showPage('about');return false;"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+      <a href="#" class="footer-link" onclick="showPage('contact');return false;"><i class="fa-solid fa-chevron-right"></i> Contact</a>
     </div>
-
-  </div>
-
-</section>
-
-<!-- LAUNDRY PRODUCT 1 -->
-<section class="page" id="ld1">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Ultra Clean</h2>
-
-      <div class="price">$12</div>
-
-      <p>
-        Industrial laundry detergent for hotels and commercial laundries.
-        Removes difficult stains while protecting fabrics.
-      </p>
-
-      <button class="btn primary" onclick="showPage('laundry')">
-        Back
-      </button>
-
+    <div>
+      <p class="footer-heading">Contact</p>
+      <a href="mailto:fa7527870@gmail.com" class="footer-link"><i class="fa-solid fa-envelope"></i> fa7527870@gmail.com</a>
+      <a href="tel:01093627563" class="footer-link"><i class="fa-solid fa-phone"></i> 01093627563</a>
+      <div class="footer-link"><i class="fa-solid fa-location-dot"></i> El Kawther, Hurghada, Egypt</div>
     </div>
-
   </div>
-
-</section>
-
-<!-- LAUNDRY PRODUCT 2 -->
-<section class="page" id="ld2">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Fabric Pro</h2>
-
-      <div class="price">$15</div>
-
-      <p>
-        Professional fabric softener with long-lasting freshness
-        for hotel laundries and hospitality facilities.
-      </p>
-
-      <button class="btn primary" onclick="showPage('laundry')">
-        Back
-      </button>
-
-    </div>
-
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Alfa Group — All Rights Reserved</span>
+    <span class="footer-tagline">Cleaning excellence since 2008</span>
   </div>
-
-</section>
-
-<!-- LAUNDRY PRODUCT 3 -->
-<section class="page" id="ld3">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Pure Disinfect</h2>
-
-      <div class="price">$16</div>
-
-      <p>
-        Hospital-grade disinfectant with advanced protection
-        for healthcare and medical facilities.
-      </p>
-
-      <button class="btn primary" onclick="showPage('laundry')">
-        Back
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- KITCHEN PRODUCT 1 -->
-<section class="page" id="kt1">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Kitchen Power</h2>
-
-      <div class="price">$14</div>
-
-      <p>
-        Heavy-duty degreaser developed for industrial kitchens
-        and restaurant operations.
-      </p>
-
-      <button class="btn primary" onclick="showPage('kitchen')">
-        Back
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- KITCHEN PRODUCT 2 -->
-<section class="page" id="kt2">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Steel Guard</h2>
-
-      <div class="price">$11</div>
-
-      <p>
-        Powerful cleaner for stainless steel surfaces,
-        kitchen equipment, and restaurant environments.
-      </p>
-
-      <button class="btn primary" onclick="showPage('kitchen')">
-        Back
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- KITCHEN PRODUCT 3 -->
-<section class="page" id="kt3">
-
-  <div class="product-details">
-
-    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="details-text">
-
-      <h2>Kitchen Fresh</h2>
-
-      <div class="price">$13</div>
-
-      <p>
-        Advanced sanitizer for food preparation areas
-        and commercial kitchens.
-      </p>
-
-      <button class="btn primary" onclick="showPage('kitchen')">
-        Back
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
+</footer>
 
 <script>
-const header = document.getElementById('header');
-
+// Navbar scroll
 window.addEventListener('scroll',()=>{
-  if(window.scrollY > 50){
-    header.classList.add('scrolled');
-  }
-  else{
-    header.classList.remove('scrolled');
-  }
+  document.getElementById('header').classList.toggle('scrolled',window.scrollY>50);
 });
-const pages = document.querySelectorAll('.page');
-const navItems = document.querySelectorAll('.nav-item');
 
-function showPage(pageId){
-  pages.forEach(page=>{
-    page.classList.remove('active');
+// Page switching
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.style.display='none';p.classList.remove('active');
   });
-
-  document.getElementById(pageId).classList.add('active');
-
-  navItems.forEach(item=>{
-    item.classList.remove('active');
-  });
-
-  const activeLink = document.querySelector(`[href="#${pageId}"]`);
-
-  if(activeLink){
-    activeLink.classList.add('active');
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
+  const t=document.getElementById(id);
+  if(t){t.style.display='block';setTimeout(()=>t.classList.add('active'),10);}
+  document.querySelectorAll('.nav-item').forEach(a=>a.classList.remove('active'));
+  const al=document.querySelector(`.nav-item[onclick*="${id}"]`);
+  if(al)al.classList.add('active');
+  if(id==='products')showProductSubPage('products-main-view');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-navItems.forEach(item=>{
-  item.addEventListener('click',function(e){
-    e.preventDefault();
-
-    const pageId = this.getAttribute('href').replace('#','');
-
-    showPage(pageId);
+// Sub-page switching
+function showProductSubPage(id){
+  document.querySelectorAll('#products .sub-page').forEach(s=>{
+    s.style.display='none';s.classList.remove('active');
   });
-});
-</script>
+  const t=document.getElementById(id);
+  if(t){t.style.display='block';setTimeout(()=>t.classList.add('active'),10);}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
+// Reveal on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
