@@ -1806,50 +1806,105 @@
 
     function backBtnAction() { if (backBtnFn) backBtnFn(); }
 
-    // Page switching
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => {
-        p.style.display = 'none'; p.classList.remove('active');
-      });
-      const t = document.getElementById(id);
-      if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
-      document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
-      const al = document.querySelector(`.nav-item[onclick*="${id}"]`);
-      if (al) al.classList.add('active');
-      if (id === 'products') showProductSubPage('products-main-view');
-      else setBackBtn(null, null);
-      closeMenu();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Sub-page switching
+    // Sub-page back map
     const backMap = {
-      'products-main-view': { label: 'Back to Home', fn: () => showPage('home') },
-      'housekeeping': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
-      'laundry': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
-      'kitchen': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
+      'products-main-view': { label: 'Back to Home',        fn: () => showPage('home') },
+      'housekeeping':        { label: 'Back to Categories',  fn: () => showProductSubPage('products-main-view') },
+      'laundry':             { label: 'Back to Categories',  fn: () => showProductSubPage('products-main-view') },
+      'kitchen':             { label: 'Back to Categories',  fn: () => showProductSubPage('products-main-view') },
       'hk1': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
       'hk2': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
       'hk3': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
-      'ld1': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
-      'ld2': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
-      'ld3': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
-      'kt1': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
-      'kt2': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
-      'kt3': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
+      'ld1': { label: 'Back to Laundry',      fn: () => showProductSubPage('laundry') },
+      'ld2': { label: 'Back to Laundry',      fn: () => showProductSubPage('laundry') },
+      'ld3': { label: 'Back to Laundry',      fn: () => showProductSubPage('laundry') },
+      'kt1': { label: 'Back to Kitchen',      fn: () => showProductSubPage('kitchen') },
+      'kt2': { label: 'Back to Kitchen',      fn: () => showProductSubPage('kitchen') },
+      'kt3': { label: 'Back to Kitchen',      fn: () => showProductSubPage('kitchen') },
     };
 
-    function showProductSubPage(id) {
-      document.querySelectorAll('#products .sub-page').forEach(s => {
-        s.style.display = 'none'; s.classList.remove('active');
+    // ── HISTORY API ──
+    // Render a state without pushing to history (used by popstate)
+    function renderPage(page, subPage, addToHistory) {
+      // Show correct page
+      document.querySelectorAll('.page').forEach(p => {
+        p.style.display = 'none'; p.classList.remove('active');
       });
-      const t = document.getElementById(id);
+      const t = document.getElementById(page);
       if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
-      const b = backMap[id];
-      if (b) setBackBtn(b.label, b.fn);
-      else setBackBtn(null, null);
+
+      // Highlight nav
+      document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
+      const al = document.querySelector(`.nav-item[onclick*="${page}"]`);
+      if (al) al.classList.add('active');
+
+      // About/Contact back buttons
+      const btnAbout   = document.getElementById('back-btn-about');
+      const btnContact = document.getElementById('back-btn-contact');
+      if (btnAbout)   btnAbout.style.display   = (page === 'about')   ? 'flex' : 'none';
+      if (btnContact) btnContact.style.display  = (page === 'contact') ? 'flex' : 'none';
+
+      // Products sub-page
+      if (page === 'products' && subPage) {
+        document.querySelectorAll('#products .sub-page').forEach(s => {
+          s.style.display = 'none'; s.classList.remove('active');
+        });
+        const sp = document.getElementById(subPage);
+        if (sp) { sp.style.display = 'block'; setTimeout(() => sp.classList.add('active'), 10); }
+        const b = backMap[subPage];
+        if (b) setBackBtn(b.label, b.fn);
+        else setBackBtn(null, null);
+      } else {
+        setBackBtn(null, null);
+      }
+
+      closeMenu();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Push to browser history
+      if (addToHistory) {
+        const state = { page, subPage: subPage || null };
+        const url = subPage && subPage !== 'products-main-view'
+          ? `#${page}/${subPage}`
+          : `#${page}`;
+        history.pushState(state, '', url);
+      }
     }
+
+    // Page switching (public — adds to history)
+    function showPage(id) {
+      const sub = (id === 'products') ? 'products-main-view' : null;
+      renderPage(id, sub, true);
+    }
+
+    // Sub-page switching (public — adds to history)
+    function showProductSubPage(id) {
+      renderPage('products', id, true);
+    }
+
+    // Handle browser back/forward (swipe back on mobile)
+    window.addEventListener('popstate', (e) => {
+      if (e.state) {
+        renderPage(e.state.page, e.state.subPage, false);
+      } else {
+        // No state = went back before any navigation, show home
+        renderPage('home', null, false);
+      }
+    });
+
+    // Set initial history entry on load so first popstate has a state
+    (function initHistory() {
+      const hash = window.location.hash;
+      let page = 'home', subPage = null;
+      if (hash) {
+        const parts = hash.replace('#', '').split('/');
+        page = parts[0] || 'home';
+        subPage = parts[1] || null;
+      }
+      // Replace current entry (no push) so there's always a state
+      history.replaceState({ page, subPage }, '', hash || '#home');
+      renderPage(page, subPage || (page === 'products' ? 'products-main-view' : null), false);
+    })();
 
     // Reveal on scroll
     const obs = new IntersectionObserver(entries => {
