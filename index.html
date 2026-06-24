@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alpha Group</title>
-  <link rel="icon" type="image/png" href="./WhatsApp Image 2026-06-09 at 3.57.58 AM.jpeg">
+  <link rel="icon" type="image/png" href="./Gemini_Generated_Image_mfphy5mfphy5mfph-removebg-preview (1).png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap"
@@ -61,8 +61,11 @@
     }
 
     header.scrolled {
-      border-bottom-color: var(--border);
-      box-shadow: 0 4px 24px rgba(0, 87, 184, 0.08);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 87, 184, 0.12);
+      box-shadow: 0 4px 32px rgba(0, 87, 184, 0.10);
     }
 
     .logo {
@@ -177,7 +180,7 @@
 
     #products .sub-page {
       min-height: auto;
-      padding: 32px 6% 60px;
+      padding: 0 0 60px;
     }
 
     /* ── HERO ── */
@@ -596,40 +599,7 @@
 
     /* ── PRODUCTS ── */
     .prod-header {
-      padding: 56px 6% 32px;
-    }
-
-    .back-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 6%;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 72px;
-      z-index: 800;
-      margin-bottom: 0;
-    }
-
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      background: var(--light);
-      color: var(--blue);
-      font-size: 14px;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-back:hover {
-      background: var(--ice);
-      border-color: var(--blue);
+      padding: 10px 6% 28px;
     }
 
     .prod-grid {
@@ -1136,6 +1106,114 @@
         height: 280px;
         min-height: 280px;
       }
+
+      /* back button on mobile: full width */
+      #back-btn {
+        width: 90%;
+        font-size: 14px;
+        padding: 15px 24px;
+      }
+
+      /* slim compress: keep height reasonable on mobile */
+      header.scrolled {
+        height: 58px;
+      }
+
+      header.scrolled .logo-img {
+        width: 42px;
+        height: 42px;
+      }
+
+      /* product grid single col already handled above */
+      .prod-header {
+        padding: 10px 5% 16px;
+      }
+
+      .detail-wrap img {
+        border-radius: 14px;
+      }
+    }
+
+    /* ── NAVBAR SLIM COMPRESS ── */
+    header.scrolled {
+      height: 54px;
+    }
+
+    header.scrolled .logo-img {
+      width: 38px;
+      height: 38px;
+    }
+
+    .logo-img {
+      transition: width 0.35s ease, height 0.35s ease, transform 0.4s ease;
+    }
+
+    /* ── BACK BUTTON (above footer) ── */
+    .back-btn-wrap {
+      display: none;
+      justify-content: center;
+      padding: 48px 6% 16px;
+    }
+
+    .back-btn-wrap.visible {
+      display: flex;
+    }
+
+    #back-btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 50%;
+      padding: 16px 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 18px rgba(0, 87, 184, 0.28);
+    }
+
+    #back-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.38) 50%, transparent 100%);
+      transform: skewX(-20deg);
+      transition: left 0.55s ease;
+    }
+
+    #back-btn:hover::after {
+      left: 130%;
+    }
+
+    #back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0, 87, 184, 0.38);
+    }
+
+    #back-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 14px rgba(0, 87, 184, 0.22);
+    }
+
+    #back-btn i {
+      font-size: 13px;
+      transition: transform 0.25s ease;
+    }
+
+    #back-btn:hover i {
+      transform: translateX(-4px);
     }
   </style>
 </head>
@@ -1287,10 +1365,6 @@
 
     <div id="products-main-view" class="sub-page active">
       <div class="prod-header">
-        <div class="back-row">
-          <button class="btn-back" onclick="showPage('home')"><i class="fa-solid fa-arrow-left"></i> Back to
-            Home</button>
-        </div>
         <!-- <p class="section-eyebrow">Our Range</p> -->
         <h2 class="section-title">Product Categories</h2>
         <p class="section-sub">Choose a department to explore our professional cleaning solutions.</p>
@@ -1335,8 +1409,6 @@
     <!-- Housekeeping -->
     <div id="housekeeping" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
         <p class="section-eyebrow">House Keeping</p>
         <h2 class="section-title">Housekeeping Products</h2>
       </div>
@@ -1383,8 +1455,6 @@
     <!-- Laundry -->
     <div id="laundry" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
         <p class="section-eyebrow">Laundry</p>
         <h2 class="section-title">Laundry Products</h2>
       </div>
@@ -1431,8 +1501,6 @@
     <!-- Kitchen -->
     <div id="kitchen" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('products-main-view')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Categories</button></div>
         <p class="section-eyebrow">Kitchen</p>
         <h2 class="section-title">Kitchen Products</h2>
       </div>
@@ -1450,7 +1518,7 @@
           </div>
         </div>
         <div class="prod-card">
-          <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7728?q=80&w=800&auto=format&fit=crop"
+          <img src="https://imgs.search.brave.com/GFzVtJuhMi2ZTnNbYLO_P741oliZVoHAbEz7G4W-v24/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9kNnk1/ZXFkY3hxOHczLmNs/b3VkZnJvbnQubmV0/L2Fzc2V0cy9ibG9n/L2Jsb2dfYXBwbGlh/bmNlcy9RNF8yMDIy/L0ZyaWVkbWFucyUy/MHN0YWlubGVzcyUy/MHN0ZWVsJTIwY2xl/YW5pbmclMjBvdmVu/LmpwZw"
             alt="Steel Guard">
           <div class="prod-card-body">
             <span class="prod-cat-tag">Kitchen</span>
@@ -1479,8 +1547,6 @@
     <!-- Product Details -->
     <div id="hk1" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?q=80&w=1200&auto=format&fit=crop"
@@ -1496,8 +1562,6 @@
     </div>
     <div id="hk2" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop"
@@ -1511,8 +1575,6 @@
     </div>
     <div id="hk3" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('housekeeping')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Housekeeping</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=1200&auto=format&fit=crop"
@@ -1526,8 +1588,6 @@
     </div>
     <div id="ld1" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1583947582886-f40ec95dd752?q=80&w=1200&auto=format&fit=crop"
@@ -1542,8 +1602,6 @@
     </div>
     <div id="ld2" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?q=80&w=1200&auto=format&fit=crop"
@@ -1558,8 +1616,6 @@
     </div>
     <div id="ld3" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('laundry')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Laundry</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1200&auto=format&fit=crop"
@@ -1573,8 +1629,6 @@
     </div>
     <div id="kt1" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=1200&auto=format&fit=crop"
@@ -1588,11 +1642,9 @@
     </div>
     <div id="kt2" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div>
       </div>
       <div class="detail-wrap"><img
-          src="https://images.unsplash.com/photo-1562259949-e8e7689d7728?q=80&w=1200&auto=format&fit=crop"
+          src="https://imgs.search.brave.com/GFzVtJuhMi2ZTnNbYLO_P741oliZVoHAbEz7G4W-v24/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9kNnk1/ZXFkY3hxOHczLmNs/b3VkZnJvbnQubmV0/L2Fzc2V0cy9ibG9n/L2Jsb2dfYXBwbGlh/bmNlcy9RNF8yMDIy/L0ZyaWVkbWFucyUy/MHN0YWlubGVzcyUy/MHN0ZWVsJTIwY2xl/YW5pbmclMjBvdmVu/LmpwZw"
           alt="Steel Guard">
         <div class="detail-text"><span class="prod-cat-tag">Kitchen</span>
           <h2>Steel Guard</h2>
@@ -1603,8 +1655,6 @@
     </div>
     <div id="kt3" class="sub-page">
       <div class="prod-header">
-        <div class="back-row"><button class="btn-back" onclick="showProductSubPage('kitchen')"><i
-              class="fa-solid fa-arrow-left"></i> Back to Kitchen</button></div>
       </div>
       <div class="detail-wrap"><img
           src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1200&auto=format&fit=crop"
@@ -1657,13 +1707,13 @@
           <h3>Contact Information</h3>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
-            <div class="contact-item-text"><strong>Email</strong><a href="mailto:fa7527870@gmail.com"
-                style="color:var(--gray);text-decoration:none;">fa7527870@gmail.com</a></div>
+            <div class="contact-item-text"><strong>Email</strong><a href="mailto:fa---0@gmail.com"
+                style="color:var(--gray);text-decoration:none;">fa---0@gmail.com</a></div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
-            <div class="contact-item-text"><strong>Phone</strong><a href="tel:01093627563"
-                style="color:var(--gray);text-decoration:none;">01093627563</a></div>
+            <div class="contact-item-text"><strong>Phone</strong><a href="tel:01000000000"
+                style="color:var(--gray);text-decoration:none;">01000000000</a></div>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
@@ -1681,6 +1731,13 @@
       </div>
     </div>
   </section>
+
+  <div class="back-btn-wrap" id="back-btn-wrap">
+    <button id="back-btn" onclick="backBtnAction()">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span id="back-btn-label">Back</span>
+    </button>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -1731,6 +1788,24 @@
       document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
     });
 
+    // Back button state
+    let backBtnFn = null;
+
+    function setBackBtn(label, fn) {
+      const wrap = document.getElementById('back-btn-wrap');
+      const lbl = document.getElementById('back-btn-label');
+      if (fn) {
+        backBtnFn = fn;
+        lbl.textContent = label;
+        wrap.classList.add('visible');
+      } else {
+        wrap.classList.remove('visible');
+        backBtnFn = null;
+      }
+    }
+
+    function backBtnAction() { if (backBtnFn) backBtnFn(); }
+
     // Page switching
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => {
@@ -1742,17 +1817,37 @@
       const al = document.querySelector(`.nav-item[onclick*="${id}"]`);
       if (al) al.classList.add('active');
       if (id === 'products') showProductSubPage('products-main-view');
+      else setBackBtn(null, null);
       closeMenu();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Sub-page switching
+    const backMap = {
+      'products-main-view': { label: 'Back to Home', fn: () => showPage('home') },
+      'housekeeping': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
+      'laundry': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
+      'kitchen': { label: 'Back to Categories', fn: () => showProductSubPage('products-main-view') },
+      'hk1': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
+      'hk2': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
+      'hk3': { label: 'Back to Housekeeping', fn: () => showProductSubPage('housekeeping') },
+      'ld1': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
+      'ld2': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
+      'ld3': { label: 'Back to Laundry', fn: () => showProductSubPage('laundry') },
+      'kt1': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
+      'kt2': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
+      'kt3': { label: 'Back to Kitchen', fn: () => showProductSubPage('kitchen') },
+    };
+
     function showProductSubPage(id) {
       document.querySelectorAll('#products .sub-page').forEach(s => {
         s.style.display = 'none'; s.classList.remove('active');
       });
       const t = document.getElementById(id);
       if (t) { t.style.display = 'block'; setTimeout(() => t.classList.add('active'), 10); }
+      const b = backMap[id];
+      if (b) setBackBtn(b.label, b.fn);
+      else setBackBtn(null, null);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1764,7 +1859,6 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
-  <a href="#" class="back-to-home">Back to Home</a>
 </body>
 
 </html>
